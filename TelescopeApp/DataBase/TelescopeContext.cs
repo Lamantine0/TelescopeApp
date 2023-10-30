@@ -12,7 +12,7 @@ namespace TelescopeApp.DataBase
         
         }
 
-        public DbSet<Telescope> Telescopes { get; set; }
+        public DbSet<Telescope> Telescopes { get; set; } = null!;
     }
 
 
