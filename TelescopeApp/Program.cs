@@ -28,4 +28,8 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=GetAllTekescopes}/{action=Index}/{id?}");
+
 app.Run();

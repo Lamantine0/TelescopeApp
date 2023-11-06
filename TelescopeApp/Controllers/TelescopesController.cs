@@ -5,6 +5,7 @@ using TelescopeApp.Models;
 
 namespace TelescopeApp.Controllers
 {
+    [Route("[controller]")]
     public class TelescopesController : Controller
     {
         private readonly TelescopeContext _context;
@@ -15,14 +16,16 @@ namespace TelescopeApp.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllTekescopes()
         {
             _context.Telescopes.GetAsyncEnumerator();
             
             await _context.SaveChangesAsync();
 
-            return View();
+            return RedirectToAction("Index");
+
+           // return View();
             
         }
 
@@ -59,6 +62,53 @@ namespace TelescopeApp.Controllers
             await _context.SaveChangesAsync();
 
             return View();
+        }
+
+
+        [HttpPost("{Pictures}")]
+
+        public async Task<IActionResult> AddTelescopePictures(Telescope telescope , IFormFile Picture)
+        {
+            if (Picture != null && Picture.Length > 0)
+            {
+                byte[]? imageData = null;
+
+                using(var binaryRider = new BinaryReader(Picture.OpenReadStream()))
+                {
+
+                    imageData = binaryRider.ReadBytes((int) Picture.Length);
+                }
+
+                telescope.Picture = imageData;
+            }
+
+            _context.Add(telescope);
+
+            await _context.SaveChangesAsync();
+
+            return View();
+        }
+
+
+        [HttpPost("{telescope}")]
+
+        public async Task<IActionResult>CreateTelescope(Telescope telescope)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Telescopes.Add(telescope);
+               
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("AddTelescope");
+
+
+
+            }
+
+            return View(telescope);
+
+            
         }
 
 

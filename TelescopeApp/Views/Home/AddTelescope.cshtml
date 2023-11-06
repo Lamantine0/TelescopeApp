@@ -1,0 +1,15 @@
+﻿@model TelescopeApp.Models.Telescope
+
+
+@{
+    ViewData["Title"] = "AddTelescope";
+}
+
+<h1>Add Telescope</h1>
+
+
+<form method="post" asp-controller="Telescope" asp-action="AddTelescope">
+    <label asp-for="Id"></label>
+    <input asp-for="Id"/>
+    <span asp-validation-for="Id"></span>
+</form>
