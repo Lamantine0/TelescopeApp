@@ -11,12 +11,16 @@ namespace TelescopeApp.Controllers
         }
 
 
-        public IActionResult AddTelescope()
-        {
-           
-           // return Content("Наш метод добовления телескопа");
+    
 
-            return View("AddTelescope");
+        public IActionResult CreateTelescope(Telescope telescope)
+        {
+            if(ModelState.IsValid)
+            {
+                return View(telescope);
+            }
+
+            return View("Index");
         }
     }
 }

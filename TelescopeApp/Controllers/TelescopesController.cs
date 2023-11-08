@@ -5,7 +5,7 @@ using TelescopeApp.Models;
 
 namespace TelescopeApp.Controllers
 {
-    [Route("[controller]")]
+   
     public class TelescopesController : Controller
     {
         private readonly TelescopeContext _context;
@@ -29,30 +29,32 @@ namespace TelescopeApp.Controllers
             
         }
 
-        [HttpGet("{id}") ]
+        [HttpGet("{id}")]
 
         public async Task<IActionResult> GetByTelescopesId(int? id)
         {
             var telesopes = _context.Telescopes.Where(p => p.Id == id).FirstOrDefault();
 
-           if (id == null)
+            if (id == null)
             {
-                BadRequest();
+                return NotFound();
             }
 
-           await _context.SaveChangesAsync();
 
-            return View();
-            
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("CreateTelescope");
+
         }
 
 
-        [HttpGet("{Name}")]
+        [HttpGet("{name}")]
 
-        public async Task<IActionResult> GetByTelescopeName(string name)
+        public async Task<IActionResult> GetByTelescopesName(string name)
         {
 
-            _context.Telescopes.Where(p => p.Name  == name).FirstOrDefault();
+            _context.Telescopes.Where(p => p.Name == name).FirstOrDefault();
 
             if (name == null)
             {
@@ -61,13 +63,13 @@ namespace TelescopeApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return View();
+            return RedirectToAction("CreateTelescope");
         }
 
 
         [HttpPost("{Pictures}")]
 
-        public async Task<IActionResult> AddTelescopePictures(Telescope telescope , IFormFile Picture)
+        public async Task<IActionResult> AddTelescopesPictures(Telescope telescope , IFormFile Picture)
         {
             if (Picture != null && Picture.Length > 0)
             {
@@ -86,13 +88,13 @@ namespace TelescopeApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return View();
+            return View(telescope);
         }
 
 
         [HttpPost("{telescope}")]
 
-        public async Task<IActionResult>CreateTelescope(Telescope telescope)
+        public async Task<IActionResult>CreateTelescopes(Telescope telescope)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +102,7 @@ namespace TelescopeApp.Controllers
                
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("AddTelescope");
+                return RedirectToAction("CreateTelescope");
 
 
 

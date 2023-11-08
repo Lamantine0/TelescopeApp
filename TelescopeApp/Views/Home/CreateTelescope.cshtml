@@ -1,0 +1,43 @@
+﻿@model TelescopeApp.Models.Telescope
+
+
+@{
+    ViewData["Title"] = "CreateTelescope";
+}
+
+<h1>Add Telescope</h1>
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="Telescopes"
+      asp-action="CreateTelescope">
+    <br>
+    <div>
+        <br>
+        <label for="Id">Id:</label>
+        <br>
+        <input type="text" id="Id" name="Id">
+        <br>
+    </div>
+    <br><br>    
+            <div>
+        <br>        <label for="Name">Name:</label>
+        <br>        <input type="text" id="Name" name="Name">
+        <br>
+    </div><br><br>    <div>
+        <br>        <label for="Manufacturer">Manufacturer:</label>
+        <br>        <input type="text" id="Manufacturer" name="Manufacturer">
+        <br>
+    </div><br><br>    <div>
+        <br>        <label for="Aperture">Aperture:</label>
+        <br>        <input type="text" id="Aperture" name="Aperture"><br>
+    </div><br>
+    <br>    <div>
+        <br>        <label for="FocalLength">Focal Length:</label>
+        <br>        <input type="text" id="FocalLength" name="FocalLength">
+        <br>
+    </div><br><br>    <div>
+        <br>        <label for="Picture">Picture:</label>
+        <br>        <input type="file" id="Picture" name="Picture"><br>
+    </div>
+    <br><br>    <button type="submit">Добавить в базу данных</button><br>
+</form>
